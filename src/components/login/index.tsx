@@ -12,10 +12,13 @@ import {
   ToastAndroid,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginForm = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const navigation = useNavigation();
 
   const exibirToast = (mensagem: string) => {
     if (Platform.OS === "android") {
@@ -37,6 +40,14 @@ const LoginForm = () => {
           parsedUserData.senha === password
         ) {
           exibirToast("Login realizado com sucesso!");
+
+          // Limpa os campos após o login bem-sucedido
+          setUsername("");
+          setPassword("");
+
+          setTimeout(() => {
+            navigation.navigate("Profile"); 
+          }, 3000);
         } else {
           exibirToast("E-mail ou senha incorretos.");
         }
@@ -86,7 +97,7 @@ const LoginForm = () => {
 };
 
 LoginForm.propTypes = {
-  onSubmit: PropTypes.func, // Removido `isRequired` pois não é mais usado.
+  onSubmit: PropTypes.func,
 };
 
 const styles = StyleSheet.create({

@@ -21,7 +21,7 @@ const CadastroDoador = () => {
   const [usercidade, setUsercidade] = useState("");
   const [userendereco, setUserendereco] = useState("");
 
-  const navigation = useNavigation(); // Para navegação
+  const navigation = useNavigation(); 
 
   const exibirToast = (mensagem) => {
     if (Platform.OS === "android") {
@@ -99,8 +99,16 @@ const CadastroDoador = () => {
       await AsyncStorage.setItem("userData", JSON.stringify(payload));
       exibirToast("Usuário cadastrado com sucesso!");
 
+      
+      setUsername("");
+      setUseremail("");
+      setUsercpf("");
+      setUserpassword("");
+      setUsercidade("");
+      setUserendereco("");
+
       setTimeout(() => {
-        navigation.navigate("Login"); // Navega para a tela de login
+        navigation.navigate("Login"); 
       }, 3000);
     } catch (error) {
       exibirToast("Erro ao salvar os dados localmente.");
